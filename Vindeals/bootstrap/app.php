@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckUserRole;
 use App\Http\Middleware\SetUserLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
          $middleware->appendToGroup('web', SetUserLocale::class);
+
+         $middleware->alias([
+            'rolecheck' => CheckUserRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

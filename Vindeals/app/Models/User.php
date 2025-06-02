@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'language',
+        'role',
     ];
 
     /**
@@ -45,5 +46,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdverteerder(){
+
+        return in_array($this->role, ['particulier', 'zakelijk']);
+    }
+
+    public function heeftZakelijkAccount() {
+        
+        return $this->role == 'zakelijk';
     }
 }
